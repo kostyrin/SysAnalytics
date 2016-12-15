@@ -1,8 +1,8 @@
 # SysAnalytics
 
 The project for analytics.</br>
-It based on ASP.NET MVC.
-Architecture: DDD, CQRS
-DataBase: MySQL
-ORM: NHibernate plus Fluent NHibernate (only read data)
-Javascript: JQuery, jqGrid
+It based on ASP.NET MVC.</br>
+Architecture: DDD, CQRS</br>
+DataBase: MySQL</br>
+ORM: NHibernate plus Fluent NHibernate (only read data)</br>
+Javascript: JQuery, jqGrid</br>
