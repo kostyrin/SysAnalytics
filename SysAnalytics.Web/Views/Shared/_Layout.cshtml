@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sys Analytics | @ViewBag.Title</title>
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <!-- Add jQuery Style direct - used for jQGrid plugin -->
+    <link href="@Url.Content("~/Scripts/plugins/jquery-ui/jquery-ui.css")" rel="stylesheet" type="text/css" />
+     @*@Styles.Render("~/Content/jquery-ui")*@
+    <link href="@Url.Content("~/fonts/font-awesome/css/font-awesome.css")" rel="stylesheet" type="text/css" />
+    @*@Styles.Render("~/fonts/font-awesome/css")*@
+    @Styles.Render("~/Content/css")
+    
+    
+    
+</head>
+<body>
+    
+    <!-- Wrapper-->
+    <div id="wrapper">
+
+        @if (Request.IsAuthenticated)
+        {
+            <!-- Navigation -->
+            @Html.Partial("_Navigation")
+        }
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg">
+
+            <!-- Top Navbar -->
+            @Html.Partial("_TopNavbar")
+
+            <!-- Main view  -->
+            @RenderBody()
+
+            <!-- Footer -->
+            @Html.Partial("_Footer")
+
+        </div>
+        <!-- End page wrapper-->
+
+    </div>
+    <!-- End wrapper-->
+
+    
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/plugins/slimScroll")
+    @Scripts.Render("~/bundles/inspinia")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @*@Scripts.Render("~/bundles/custom")*@
+    @*@Scripts.Render("~/bundles/plugins")*@
+    
+   
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

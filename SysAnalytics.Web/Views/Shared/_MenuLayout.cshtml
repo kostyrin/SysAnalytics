@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNet.Identity
+@using SysAnalytics.Web.Helpers
+@*@model IEnumerable<Industry.Front.Web.Models.NavigationMenu>*@
+
+<li class="nav-header">
+    <div class="dropdown profile-element">
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <span class="clear">
+                <span class="block m-t-xs">
+                    <strong class="font-bold">@Html.ActionLink(User.Identity.GetUserName(), "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</strong>
+                </span> 
+                @*<span class="text-muted text-xs block">Example menu <b class="caret"></b></span>*@
+            </span>
+        </a>
+        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+    <div class="logo-element">
+        SA
+    </div>
+</li>
+
+@*<li>@Html.IsSelected("Home", "Index")</li>
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li>@Html.IsSelected("Order", "Index");</li>*@
+@*<li>@Html.IsSelected("Order", "Index")</li>*@
+@*<li>@Html.ActionLink("User", "Index", "User")</li>
+<li>@Html.ActionLink("Customer", "Index", "Customer")</li>
+<li>@Html.ActionLink("Writer", "Index", "Writer")</li>
+<li>@Html.ActionLink("Order", "Index", "Order")</li>*@
+
+@*@{
+        if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <li class="@item.Activeli">
+                <a href="@Url.Action(item.Action, item.Controller)"><i class="@item.ImageClass"></i> @item.NameOption</a>
+                </li>
+            }
+        }
+    }*@
+

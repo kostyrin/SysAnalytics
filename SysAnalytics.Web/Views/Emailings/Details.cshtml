@@ -1,0 +1,75 @@
+﻿@model SysAnalytics.Web.ViewModels.EmailingDetailsFormModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Emailing Details</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Home")">Home</a>
+            </li>
+            <li>
+                <a href="/Emailings">back to Emailings</a>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <p><strong>Creator:</strong> @Model.CreatorId</p> 
+                    <p><strong>Delivery at:</strong> @Model.DeliveryDate.ToString("g")</p> 
+                    <p><strong>Template:</strong> @Model.Template</p> 
+                    <p><strong>Status:</strong> @Model.Status</p> 
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Mail Id</th>
+                            <th>State</th>
+                            <th>Opens</th>
+                            <th>Clicks</th>
+                            <th>RejectReason</th>
+                            <th>RecipientId</th>
+                            
+                        </tr>
+
+                        @foreach (var item in Model.Details)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.HiddenFor(modelItem => item.EmailingDetailId)
+                                    @Html.DisplayFor(modelItem => item.EmailId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.State)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Opens)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Clicks)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RejectReason)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RecipientId)
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

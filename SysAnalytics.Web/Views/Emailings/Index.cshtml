@@ -1,0 +1,52 @@
+﻿@using SysAnalytics.Web.ViewModels
+@using SysAnalytics.Web.Helpers
+@model EmailingListViewModel
+@{
+    ViewBag.Title = @Model.GridData.Caption;
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>@Model.GridData.Caption</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Home")">Home</a>
+            </li>
+            <li class="active">
+                <strong>@Model.GridData.Caption</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>@ViewData["SubTitle"]</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="jqGrid_wrapper">
+                        @Html.CreatejqGridHtml(Model.GridData)
+                        <button class="btn btn-success" style="margin-top: 20px;" id="send-report-btn" type="button">Send report to my email</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/jqGrid")
+}
+
+@section Scripts {
+    @Scripts.Render("~/plugins/jqGrid")
+    @Scripts.Render("~/bundles/plugins")
+    @Scripts.Render("~/bundles/custom")
+
+    @Html.CreatejqGridJS(Model.GridData)
+}

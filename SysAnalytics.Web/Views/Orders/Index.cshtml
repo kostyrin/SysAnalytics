@@ -1,0 +1,280 @@
+﻿@using SysAnalytics.Web.ViewModels
+@using SysAnalytics.Web.Helpers
+@model OrderListViewModel
+@{
+    ViewBag.Title = "Orders";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Orders</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Home")">Home</a>
+            </li>
+            <li class="active">
+                <strong>Orders</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>@ViewData["SubTitle"]</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="jqGrid_wrapper">
+                        @Html.CreatejqGridHtml(Model.GridData)
+                        <button class="btn btn-success" style="margin-top: 20px;" id="send-report-btn" type="button">Send report to my email</button>
+                        <div class="modal inmodal fade in" id="save-tpl" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div id="save-tpl-message">
+                                        <div class="modal-header">
+                                            <button type="button" class="close">
+                                                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                            </button>
+                                            <h4 class="modal-title">Save new template?</h4>
+                                        </div>
+                                        <div class="modal-footer" style="text-align: center; border-top: 0;">
+                                            <button type="button" class="btn btn-primary" value="1">Yes</button>
+                                            <button type="button" class="btn btn-white" value="0" data-dismiss="modal">No</button>
+                                        </div>
+                                    </div>
+                                    <form id="save-tpl-form" action="#" method="post">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group has-feedback">
+                                                <label>Enter template name:</label>
+                                                <input type="text" id="tpl-name" class="form-control" data-error-exists="Template with this title already exists">
+                                                <span class="text-danger hidden" id="tpl-name-error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-white" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="templates clearfix">
+                            <h3>Choose from saved templates:</h3>
+                            <ul>
+                                @Html.CreatejqGridTemplate(Model.GridData)
+                            </ul>
+                        </div>
+
+                        <div class="modal inmodal fade in" id="remove-tpl-success" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close">
+                                            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                        </button>
+                                        <h4 class="modal-title">Successfully removed!</h4>
+                                    </div>
+
+                                    <div class="modal-footer" style="text-align: center; border-top: 0;">
+                                        <button type="button" class="btn btn-white" data-dismiss="modal">Ok</button>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="loader">
+                            <div class="loader-content">
+                                <img class="loader-img" src="/Content/images/ajax-loader.gif" alt="Loading">
+                                <span class="loader-text">Loading...</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    @Styles.Render("~/Content/jqGrid")
+    
+    <style>
+      .ui-th-column div { white-space: normal !important; height: auto !important; padding: 2px; }
+
+      #save-tpl {
+        display: none;
+      }
+      #save-tpl-form {
+        display: none;
+      }
+      .templates {
+        display: none;
+        padding: 0 25px;
+      }
+      .templates h3 {
+        float: left;
+        width: 100%;
+      }
+      .templates ul {
+        float: left;
+        margin: 0;
+        padding: 0;
+        line-height: 20px;
+        width: 100%;
+      }
+      .templates li {
+        border-bottom: 1px solid #ddd;
+        float: left;
+        list-style: none;
+        margin: 5px 0;
+        padding: 5px 0;
+        width: 100%;
+      }
+      .templates button {
+        font-size: 13px !Important;
+        line-height: 1;
+        height: 20px;
+        float: right;
+        cursor: pointer;
+        margin-left: 5px;
+        width: 65px;
+      }
+
+      .templates span {
+        line-height: 16px;
+        font-weight: 700;
+        padding-top: 2px;
+        font-size: 13px;
+        height: 20px;
+        display: inline-block;
+        float: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width:280px;
+      }
+
+      .ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-dialog-buttons.ui-draggable.ui-resizable {
+        width: 700px!important;
+        }
+
+        div#colchooser_OrderSearchGrid > div {
+        width: 100%!important;
+        }
+
+        div#colchooser_OrderSearchGrid > div > div {
+        width: 100%!important;
+        }
+
+        div#colchooser_OrderSearchGrid > div > div > .selected,
+        div#colchooser_OrderSearchGrid > div > div > .available {
+        width: 50% !important;
+        }
+
+        div#colchooser_OrderSearchGrid > div > div > .selected {
+        border-right: 1px solid;
+        }
+
+        div#colchooser_OrderSearchGrid > div > div > .available {
+        border-left: 0;
+        }
+
+        div#searchmodfbox_OrderSearchGrid {
+        min-width: 700px!important;
+      }
+
+      div#searchmodfbox_OrderSearchGrid table.group.ui-widget.ui-widget-content {
+        width: 100%;
+      }
+
+      div#searchmodfbox_OrderSearchGrid table.group.ui-widget.ui-widget-content select {
+        margin-bottom: 5px;
+        margin-top: 5px;
+        height: 30px;
+        width: 90%;
+      }
+
+      div#searchmodfbox_OrderSearchGrid table.group.ui-widget.ui-widget-content select.opsel {
+        margin-right: 18px;
+        width: 172px;
+      }
+
+      div#searchmodfbox_OrderSearchGrid table.group.ui-widget.ui-widget-content .input-elm.hasDatepicker {
+        height: 30px;
+      }
+
+      #loader {
+        display: none;
+        background: rgba(0, 0, 0, .75);
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        text-align: center;
+        z-index: 9999;
+      }
+
+      .loader-content {
+        position: absolute;
+        top: 50%;
+        margin-top: -42px;
+        width: 100%;
+      }
+
+      .loader-img {
+        display: inline-block;
+        height: 32px;
+        width: 32px;
+      }
+
+      .loader-text {
+        display: block;
+        font-size: 24px;
+        letter-spacing: 12px;
+        padding-top: 20px;
+        color: #fff;
+      }
+
+      div#fbox_OrderSearchGrid {
+            min-width: 695px !important;
+        }
+      
+    </style>
+    
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/plugins")
+    @Scripts.Render("~/bundles/custom")
+    @Scripts.Render("~/plugins/jqGrid")
+    
+    @Html.CreatejqGridJS(Model.GridData)
+}
+
+
+
+@*<h2>@Html.Encode(ViewData["Message"])</h2>*@
+@*@HtmlHelperExtensions.CreateJQGrid<SysAnalytics.Web.Core.OrderFormModel>(Model.)*@
+
+
+
+    @*<table id="gridOrder" class="scroll" cellpadding="0" cellspacing="0"></table>
+        <div id="pager" class="scroll" style="text-align: center;"></div>*@
+
+    @*<script language="javascript" type="text/javascript" src="~/Scripts/jqGridOrderIndex.js"></script>*@
